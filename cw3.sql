@@ -45,7 +45,6 @@ insert into input_points (geom) values
 (ST_GeomFromText('POINT(8.36093 49.03174)')),
 (ST_GeomFromText('POINT(8.39876 49.00644)'))
 
-select * from input_points
 
 --5
 update input_points
@@ -68,14 +67,7 @@ select  sn2019. *
 from t2019_kar_street_node sn2019, lines l
 where ST_DWithin(ST_Transform(sn2019.geom, 3068), l.geom_line, 200)
 
-with new_line as (
-select ST_MakeLine(geom order by id) as geom_new
-from input_points
-)
-select sn2019. *
-from t2019_kar_street_node sn2019
-cross join new_line l
-where ST_DWithin(ST_Transform(sn2019.geom, 3068), l.geom_new, 200)
+.geom, 3068), l.geom_new, 200)
 
 
 --7
@@ -92,5 +84,6 @@ select ST_Intersection(r2019.geom, w2019.geom) as geom
 from t2019_kar_railways r2019
 join t2019_kar_water_lines w2019 on ST_Intersects(r2019.geom, w2019.geom)
 where ST_Dimension(ST_Intersection(r2019.geom, w2019.geom)) = 0
+
 
 select * from t2019_kar_bridges
