@@ -67,9 +67,6 @@ select  sn2019. *
 from t2019_kar_street_node sn2019, lines l
 where ST_DWithin(ST_Transform(sn2019.geom, 3068), l.geom_line, 200)
 
-.geom, 3068), l.geom_new, 200)
-
-
 --7
 select * from  t2019_kar_land_use_a
 
@@ -83,7 +80,8 @@ create table t2019_kar_bridges as
 select ST_Intersection(r2019.geom, w2019.geom) as geom
 from t2019_kar_railways r2019
 join t2019_kar_water_lines w2019 on ST_Intersects(r2019.geom, w2019.geom)
-where ST_Dimension(ST_Intersection(r2019.geom, w2019.geom)) = 0
+where ST_Intersection(r2019.geom, w2019.geom)
 
 
 select * from t2019_kar_bridges
+
